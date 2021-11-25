@@ -1,6 +1,8 @@
 import React, { useReducer, useState } from 'react'
 import { ADD_EVENT } from '../actions/index'
 import reducer from '../reducers/index'
+import firebase from '../config/firebase'
+import TextField from '@material-ui/core/TextField';
 import { Table, InputGroup, FormControl, Button } from 'react-bootstrap'
 import './ToDomain.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +12,9 @@ const ToDomain = () => {
     const [state, dispatch] = useReducer(reducer, []);
     const [dating, setDating] = useState('');
     const [product, setProduct] = useState('');
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -22,11 +27,21 @@ const ToDomain = () => {
         setProduct('');
     }
 
+    const click = () => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+            })
+        console.log('success login');
+    }
+
     return (
         <div>
             <div className='headder'>
                 <h1>万</h1>
                 <h3>在庫状況</h3>
+                <TextField id="email" label="email" value={email} onChange={e => setEmail(e.target.value)} /><br />
+                <TextField id="password" label="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
+                <Button variant="outlined" onClick={click}>Create</Button>
             </div>
             <div className='main'>
                 <InputGroup className="mb-3">

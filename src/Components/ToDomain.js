@@ -21,8 +21,6 @@ const ToDomain = () => {
         setDating('');
         setProduct('');
     }
-    console.log(dating)
-    console.log(product)
 
     return (
         <div>

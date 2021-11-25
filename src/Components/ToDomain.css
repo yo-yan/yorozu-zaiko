@@ -1,0 +1,9 @@
+.headder {
+    text-align: center;
+}
+.main {
+    display: flex;
+}
+.mainItem {
+    text-align: center;
+}

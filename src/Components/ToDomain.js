@@ -1,11 +1,12 @@
-import React, { useReducer, useState } from 'react'
-import { ADD_EVENT } from '../actions/index'
-import reducer from '../reducers/index'
-import firebase from '../config/firebase'
+import React, { useReducer, useState } from 'react';
+import { ADD_EVENT } from '../actions/index';
+import reducer from '../reducers/index';
+import firebase, { googleIn } from '../config/firebase';
 import TextField from '@material-ui/core/TextField';
-import { Table, InputGroup, FormControl, Button } from 'react-bootstrap'
-import './ToDomain.css'
+import { Table, InputGroup, FormControl, Button } from 'react-bootstrap';
+import './ToDomain.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const ToDomain = () => {
 
@@ -27,12 +28,23 @@ const ToDomain = () => {
         setProduct('');
     }
 
-    const click = () => {
+    const userCreate = () => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
+                console.log('success login');
             })
-        console.log('success login');
+            .catch(function (error) {
+                // Handle Errors here.
+                //var errorCode = error.code;
+                //var errorMessage = error.message;
+                // ...
+            });
     }
+
+    const googleClick = async () => {
+        await googleIn()
+    }
+
 
     return (
         <div>
@@ -41,7 +53,8 @@ const ToDomain = () => {
                 <h3>在庫状況</h3>
                 <TextField id="email" label="email" value={email} onChange={e => setEmail(e.target.value)} /><br />
                 <TextField id="password" label="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
-                <Button variant="outlined" onClick={click}>Create</Button>
+                <Button variant="outlined" onClick={userCreate}>Create</Button>
+                <Button variant="outlined" onClick={googleClick}>google</Button>
             </div>
             <div className='main'>
                 <InputGroup className="mb-3">
